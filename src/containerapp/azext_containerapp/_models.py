@@ -313,6 +313,16 @@ SessionPool = {
     }
 }
 
+SessionCodeInterpreterPythonExecution = {
+    "properties": {
+        "identifier": None,
+        "codeInputType": None,
+        "executionType": None,
+        "pythonCode": None,
+        "timeoutInSeconds": None
+    }
+}
+
 DaprComponentResiliency = {
     "properties": {
         "inboundPolicy": {
