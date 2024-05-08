@@ -318,7 +318,7 @@ SessionCodeInterpreterPythonExecution = {
         "identifier": None,
         "codeInputType": None,
         "executionType": None,
-        "pythonCode": None,
+        "code": None,
         "timeoutInSeconds": None
     }
 }
