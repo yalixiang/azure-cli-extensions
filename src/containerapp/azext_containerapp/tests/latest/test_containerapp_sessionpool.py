@@ -47,7 +47,11 @@ class ContainerappSessionPoolTests(ScenarioTest):
         secret_name = "testsecret"
         secret_value = "testsecretvalue"
         self.cmd(
+<<<<<<< HEAD
             'containerapp sessionpool create -g {} -n {} --container-type CustomContainer --environment {} --secrets {}={} --ready-session-instances {} --image {} --cpu 0.5 --memory 1Gi --target-port {}'.format(
+=======
+            'containerapp sessionpool create -g {} -n {} --container-type CustomContainer --environment {} --secrets {}={} --ready-sessions {} --image {} --cpu 0.5 --memory 1Gi --target-port {}'.format(
+>>>>>>> d647502aaafa4c80c75b7467af53aebdd3553280
                 resource_group, sessionpool_name_custom, env_name, secret_name, secret_value, ready_instances, image, 80),
             checks=[
                 JMESPathCheck('name', sessionpool_name_custom),
@@ -67,6 +71,7 @@ class ContainerappSessionPoolTests(ScenarioTest):
         self.assertTrue(len(sessionpool_list) == 2)
 
         # Update Session Pool
+<<<<<<< HEAD
         # secret_name = "testsecret2"
         # secret_value = "testsecretvalue2"
         # max_concurrent_session = 12
@@ -86,6 +91,26 @@ class ContainerappSessionPoolTests(ScenarioTest):
         #         JMESPathCheck('properties.customContainerTemplate.containers[0].resources.memory', "1Gi"),
         #         JMESPathCheck('properties.customContainerTemplate.ingress.targetPort', 80),
         #     ])
+=======
+        max_concurrent_session = 12
+        ready_instances = 1
+        self.cmd(
+            'containerapp sessionpool update -g {} -n {} --max-sessions {} --ready-sessions {}'.format(
+                resource_group, sessionpool_name_custom, max_concurrent_session, ready_instances),
+            checks=[
+                JMESPathCheck('name', sessionpool_name_custom),
+                JMESPathCheck('properties.containerType', "CustomContainer"),
+                JMESPathCheck('properties.provisioningState', "Succeeded"),
+                JMESPathCheck('properties.scaleConfiguration.maxConcurrentSessions', max_concurrent_session),
+                JMESPathCheck('properties.scaleConfiguration.readySessionInstances', ready_instances),
+                JMESPathCheck('properties.secrets[0].name', secret_name),
+                JMESPathCheck('properties.customContainerTemplate.containers[0].image', image),
+                JMESPathCheck('properties.customContainerTemplate.containers[0].resources.cpu', "0.5"),
+                JMESPathCheck('properties.customContainerTemplate.containers[0].resources.memory', "1Gi"),
+                JMESPathCheck('properties.customContainerTemplate.ingress.targetPort', 80),
+                JMESPathCheck('properties.sessionNetworkConfiguration.status', "EgressDisabled"),
+            ])
+>>>>>>> d647502aaafa4c80c75b7467af53aebdd3553280
 
         # Show a Session Pool
         self.cmd(

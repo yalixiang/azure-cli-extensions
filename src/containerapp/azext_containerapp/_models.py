@@ -295,10 +295,17 @@ ContainerAppsJob = {
 SessionPool = {
     "location": None,
     "properties": {
+<<<<<<< HEAD
         #"environmentId": None,
         "poolManagementType": None,
         "containerType": None,
         #"customContainerTemplate": None,
+=======
+        "environmentId": None,
+        "poolManagementType": None,
+        "containerType": None,
+        "customContainerTemplate": None,
+>>>>>>> d647502aaafa4c80c75b7467af53aebdd3553280
         "secrets": None,
         "dynamicPoolConfiguration": None,
         "scaleConfiguration": None,
@@ -600,4 +607,8 @@ CustomDomainConfiguration = {
     "certificateValue": None,
     "certificatePassword": None,
     "certificateKeyVaultProperties": None
+}
+
+RuntimeJava = {
+    "enableMetrics": False
 }
