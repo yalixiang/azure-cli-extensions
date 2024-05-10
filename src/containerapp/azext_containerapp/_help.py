@@ -1615,35 +1615,11 @@ helps['containerapp sessionpool create'] = """
       text: |
           az containerapp sessionpool create -n mysessionpool -g MyResourceGroup \\
               --location eastasia
-    - name: Create or update a Session Pool with container type PythonLTS, with max concurrent sessions is 30, ready session instances 20.
+    - name: Create or update a Session Pool with container type PythonLTS, with max concurrent sessions is 30
       text: |
           az containerapp sessionpool create -n mysessionpool -g MyResourceGroup \\
-              --container-type PythonLTS --max-sessions 30 --ready-sessions 20 \\
+              --container-type PythonLTS --max-sessions 30 \\
               --location eastasia
-    - name: Create or update a Session Pool with container type CustomerContainer with default quickstart image.
-      text: |
-          az containerapp sessionpool create -n mysessionpool -g MyResourceGroup \\
-              --container-type CustomerContainer --environment MyEnvironment \\
-              --cpu 0.5 --memory 1Gi --target-port 80 --location eastasia
-    - name: Create or update a Session Pool with container type CustomerContainer that has secrets and environment variables.
-      text: |
-          az containerapp sessionpool create -n mysessionpool -g MyResourceGroup \\
-              --container-type CustomerContainer --environment MyEnvironment \\
-              --cpu 0.5 --memory 1Gi --target-port 80 \\
-              --env-vars GREETING="Hello, world" SECRETENV=secretref:anothersecret \\
-              --secrets mysecret=secretvalue1 anothersecret="secret value 2" --location eastasia
-    - name: Create or update a Session Pool with container type CustomerContainer that from private registry
-      text: |
-          az containerapp sessionpool create -n mysessionpool -g MyResourceGroup \\
-              --container-type CustomerContainer --environment MyEnvironment \\
-              --cpu 0.5 --memory 1Gi --target-port 80 --registry-server myregistry.azurecr.io \\
-              --registry-username myregistry --registry-password $REGISTRY_PASSWORD \\
-              --location eastasia
-    - name: Create or update a Session Pool with container type CustomerContainer with cooldown period 120s
-      text: |
-          az containerapp sessionpool create -n mysessionpool -g MyResourceGroup \\
-              --environment MyEnvironment --cpu 0.5 --memory 1Gi --target-port 80 \\
-              --cooldown-period 120 --location eastasia
 """
 
 helps['containerapp sessionpool update'] = """
@@ -1697,16 +1673,16 @@ helps['containerapp session code-interpreter execute'] = """
     - name: Execute a simple hello world.
       text: |
           az containerapp session code-interpreter execute -n MySessionPool -g MyResourceGroup --identifier MySession\\
-              --code 'print("'"Hello world"'")' --timeout-in-seconds 30
+              --code "print("'"Hello world"'")" --timeout-in-seconds 30
 """
 
-helps['containerapp session code-interpreter upload'] = """
+helps['containerapp session code-interpreter upload-file'] = """
     type: command
     short-summary: Upload a file to a code interpreter session .
     examples:
     - name: Upload a file to a session.
       text: |
-          az containerapp containerapp session code-interpreter upload -n MySessionPool -g MyResourceGroup --identifier MySession\\
+          az containerapp containerapp session code-interpreter upload-file -n MySessionPool -g MyResourceGroup --identifier MySession\\
               --filepath example.txt  
 """
 
@@ -1724,7 +1700,7 @@ helps['containerapp session code-interpreter show-file-metadata'] = """
     short-summary: Shows the meta-data content a file uploaded to a code interpreter session.
     examples:
     - name: Show the meta-data details of a file uploaded to a session.
-       text: az containerapp session code-interpreter show-file-metadata -n MySessionPool -g MyResourceGroup --identifier MySession\\
+      text: az containerapp session code-interpreter show-file-metadata -n MySessionPool -g MyResourceGroup --identifier MySession\\
               --filename example.txt
 """
 
