@@ -1719,5 +1719,5 @@ helps['containerapp session code-interpreter list-files'] = """
     examples:
     - name: List files uploaded in a code-interpreter session.
       text: |
-          az containerapp sessionpool list-files -n MySessionPool -g MyResourceGroup --identifier MySession --path /example
+          az containerapp sessionpool list-files -n MySessionPool -g MyResourceGroup --identifier MySession
 """
