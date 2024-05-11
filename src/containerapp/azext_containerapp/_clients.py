@@ -1243,7 +1243,6 @@ class SessionCodeInterpreterPreviewClient():
 
         logger.warning(request_url)
         r = send_raw_request(cmd.cli_ctx, "GET", request_url, resource=SESSION_RESOURCE)
-        logger.warning(r.content.decode())
         return json.dumps(r.content.decode())
 
     @classmethod
@@ -1297,9 +1296,6 @@ class SessionCodeInterpreterPreviewClient():
         logger.warning(request_url)
         r = send_raw_request(cmd.cli_ctx, "GET", request_url, resource=SESSION_RESOURCE)
         r = r.json()
-
-        logger.warning(r)
-
 
         for file in r["value"]:
             files_list.append(file)
