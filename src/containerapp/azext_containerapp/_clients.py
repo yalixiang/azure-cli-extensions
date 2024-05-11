@@ -11,7 +11,7 @@ import os
 import requests
 import uuid
 
-from azure.cli.core.azclierror import AzureResponseError, ResourceNotFoundError
+from azure.cli.core.azclierror import AzureResponseError, ResourceNotFoundError, HTTPError
 from azure.cli.core.util import send_raw_request
 from azure.cli.core.commands.client_factory import get_subscription_id
 from azure.cli.command_modules.containerapp._clients import (
@@ -1035,8 +1035,18 @@ class SessionPoolPreviewClient():
                 }
             }))
         except Exception as e:
-            logger.warning("Could not add user as session pool creator role to the session pool, please follow the docs https://learn.microsoft.com/en-us/azure/container-apps/sessions-code-interpreter to add this role through portal")
-            logger.warning(e)
+            try:
+                if isinstance(e, HTTPError):
+                    try:
+                        error_code = json.loads(e.response.text)["error"]["code"]
+                        if error_code == "RoleAssignmentExists":
+                            pass
+                    except:
+                        logger.warning("Could not add user as session pool creator role to the session pool, please follow the docs https://learn.microsoft.com/en-us/azure/container-apps/sessions-code-interpreter to add this role through portal")
+                        logger.warning(e)
+            except:
+                logger.warning("Could not add user as session pool creator role to the session pool, please follow the docs https://learn.microsoft.com/en-us/azure/container-apps/sessions-code-interpreter to add this role through portal")
+                logger.warning(e)
        
         if no_wait:
             return r.json()
