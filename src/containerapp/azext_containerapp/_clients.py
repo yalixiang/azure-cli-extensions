@@ -1023,9 +1023,6 @@ class SessionPoolPreviewClient():
             role_assignment_url = role_assignment_fmt.format(
                 management_hostname.strip('/'),
                 scope,
-                sub_id,
-                resource_group_name,
-                name,
                 uuid.uuid4()
             )
             role_definition_id = "/{}/providers/Microsoft.Authorization/roleDefinitions/{}".format(
@@ -1038,7 +1035,7 @@ class SessionPoolPreviewClient():
                 }
             }))
         except Exception as e:
-            logger.warning("Could not add user as session pool creator role to the session pool, please follow the docs here to add this role through portal")
+            logger.warning("Could not add user as session pool creator role to the session pool, please follow the docs https://learn.microsoft.com/en-us/azure/container-apps/sessions-code-interpreter to add this role through portal")
             logger.warning(e)
        
         if no_wait:
